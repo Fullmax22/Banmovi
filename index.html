@@ -10,7 +10,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #000;               
+      background: #000;                  
       font-family: 'Inter', sans-serif;
       display: flex;
       justify-content: center;
@@ -165,25 +165,28 @@
   <div id="fecha" class="input-overlay"></div>
   <div id="referencia" class="input-overlay"></div>
 </div>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>                 
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>                    
 <script>
 let claveAcceso = "2025142205";
 const claveAdmin = "1395";
 
-function formatValor(valor) {
+function formatValor(valor, negativo = false) {
   valor = valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  return `${valor}<span class="decimales">,00</span>`;
+  const signo = negativo ? '-' : '';
+  return `${signo}$ ${valor}<span class="decimales">,00</span>`;
 }
+
 function generarValorFijo() {
   const min = 3000000;
   const max = 4000000;
   const valorFijo = Math.floor(Math.random() * (max - min + 1)) + min;
-  return `$ ${formatValor(valorFijo)}`;
+  return formatValor(valorFijo);
 }
 
 document.getElementById('whatsapp').addEventListener('click', () => {
   window.open('https://wa.me/573178793834?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20la%20clave%20de%20NequiBotGV.', '_blank');
 });
+
 document.getElementById('clave-ingreso').addEventListener('click', () => {
   const clave = prompt("Ingrese la clave de acceso:");
   if (clave === claveAdmin) {
@@ -195,6 +198,7 @@ document.getElementById('clave-ingreso').addEventListener('click', () => {
     alert("Clave incorrecta. Acceso denegado.");
   }
 });
+
 document.getElementById('cambiar-clave-boton').addEventListener('click', () => {
   const clave = prompt("Ingrese la clave de administrador:");
   if (clave === claveAdmin) {
@@ -204,12 +208,14 @@ document.getElementById('cambiar-clave-boton').addEventListener('click', () => {
     alert("Clave de administrador incorrecta.");
   }
 });
+
 function mostrarFormulario() {
   document.getElementById('contenido-oculto').style.display = 'block';
   document.getElementById('whatsapp').style.display = 'none';
   document.getElementById('clave-ingreso').style.display = 'none';
   document.getElementById('cambiar-clave-boton').style.display = 'none';
 }
+
 document.getElementById('guardar-nueva-clave').addEventListener('click', () => {
   const nueva = document.getElementById('nueva-clave').value.trim();
   if (nueva) {
@@ -218,19 +224,25 @@ document.getElementById('guardar-nueva-clave').addEventListener('click', () => {
     document.getElementById('nueva-clave').value = "";
   }
 });
+
 document.getElementById('generar').addEventListener('click', () => {
   if (!validarEntradas()) return;
   const container = document.getElementById('captura');
-  const img = document.querySelector('#captura img');                
+  const img = document.querySelector('#captura img');                   
   const escala = Math.min(window.innerWidth / 390, 1);
   container.style.setProperty('--escala', escala);
   document.getElementById('pantalla').style.display = 'none';
   container.style.display = 'block';
   const valor = document.getElementById('input-valor').value.replace(/\D/g,'');
-  const valorFormateado = formatValor(valor);
-  document.getElementById('valor').innerHTML = `<span class="cop-text">COP</span> <span style="float:right;">&nbsp;$&nbsp;${valorFormateado}</span>`;
+  
+  // Valor en rojo con signo menos y decimales
+  const valorFormateadoRojo = formatValor(valor, true);
+  document.getElementById('valor').innerHTML = `<span class="cop-text">COP</span> <span style="float:right;">&nbsp;${valorFormateadoRojo}</span>`;
+  
+  // Valor fijo en negro con decimales
   const valorFijo = generarValorFijo();
   document.getElementById('valor-fijo').innerHTML = valorFijo;
+
   const fechaActual = new Date();
   const fechaFormateada = fechaActual.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, ' ').toUpperCase();
   document.getElementById('fecha').innerHTML = fechaFormateada;
@@ -242,6 +254,7 @@ document.getElementById('generar').addEventListener('click', () => {
   }
   descargarComprobante(formato);
 });
+
 function validarEntradas() {
   const valor = document.getElementById('input-valor').value.replace(/\D/g,'');
   if (!valor) {
@@ -254,6 +267,7 @@ function validarEntradas() {
   }
   return true;
 }
+
 function descargarComprobante(formato) {
   const img = document.querySelector('#captura img');
   if (!img.complete || !img.naturalWidth) {
