@@ -3,32 +3,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Redirección Pantalla Completa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>NequiBotGV</title>
+
+  <!-- META etiquetas para PWA y fullscreen -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#1a0020">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NequiBotGV">
+  <link rel="manifest" href="manifest.json">
+
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 100vw;
       height: 100vh;
-      background-color: #000;
+      background-color: #1a0020;
+      color: white;
+      font-family: sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
-      font-family: sans-serif;
       text-align: center;
     }
-
     .mensaje {
       font-size: 18px;
-      max-width: 300px;
+      max-width: 90%;
     }
   </style>
 </head>
 <body>
   <div class="mensaje">
-    Toca cualquier parte de la pantalla para continuar a pantalla completa...
+    Toca la pantalla para iniciar NequiBotGV en modo pantalla completa...
   </div>
 
   <script>
