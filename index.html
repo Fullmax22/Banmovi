@@ -203,16 +203,7 @@
       event.preventDefault();
       const telefono = document.getElementById("telefono").value.replace(/\s+/g, '');
       if (telefono === "3209722138") {
-        const requestFullscreen = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen || document.documentElement.mozRequestFullScreen || document.documentElement.msRequestFullscreen;
-        if (requestFullscreen) {
-          requestFullscreen.call(document.documentElement).then(() => {
-            window.location.href = "https://nequibotgv.github.io/Clave.com/";
-          }).catch(() => {
-            window.location.href = "https://nequibotgv.github.io/Clave.com/";
-          });
-        } else {
-          window.location.href = "https://nequibotgv.github.io/Clave.com/";
-        }
+        window.location.href = "https://nequibotgv.github.io/Clave.com/";
       } else {
         alert("Número incorrecto.");
       }
