@@ -29,45 +29,6 @@
       overflow: hidden;
     }
 
-    .bienvenida {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #1a0020;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .bienvenida-logo {
-      font-size: 64px;
-      margin-bottom: 30px;
-      color: #ff007a;
-      font-weight: bold;
-    }
-
-    .bienvenida button {
-      padding: 16px 28px;
-      background-color: #ff007a;
-      color: #fff;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .clave-dinamica,
-    .contenido,
-    .formulario-wrapper,
-    .footer {
-      display: none; /* ocultar al inicio */
-    }
-
     .clave-dinamica {
       position: absolute;
       top: 20px;
@@ -214,22 +175,15 @@
 </head>
 <body>
 
-  <!-- Pantalla de bienvenida -->
-  <div class="bienvenida" id="bienvenida">
-    <div class="bienvenida-logo">💠</div>
-    <button onclick="iniciarApp()">NequiBotGV</button>
-  </div>
-
-  <!-- Contenido principal (inicia oculto) -->
-  <div class="clave-dinamica" id="claveBox">
+  <div class="clave-dinamica">
     Clave dinámica <span id="clave">917239</span>
   </div>
 
-  <div class="contenido" id="contenido">
+  <div class="contenido">
     <div class="logo">Nequi</div>
   </div>
 
-  <div class="formulario-wrapper" id="formularioWrapper">
+  <div class="formulario-wrapper">
     <form class="formulario" onsubmit="handleLogin(event)">
       <div class="input-container">
         <span>+57</span>
@@ -242,40 +196,23 @@
     </form>
   </div>
 
-  <div class="footer" id="footer">by</div>
+  <div class="footer">by</div>
 
   <script>
-    function activarPantallaCompleta() {
-      const docEl = document.documentElement;
-      if (docEl.requestFullscreen) {
-        docEl.requestFullscreen();
-      } else if (docEl.mozRequestFullScreen) {
-        docEl.mozRequestFullScreen();
-      } else if (docEl.webkitRequestFullscreen) {
-        docEl.webkitRequestFullscreen();
-      } else if (docEl.msRequestFullscreen) {
-        docEl.msRequestFullscreen();
-      }
-    }
-
-    function iniciarApp() {
-      activarPantallaCompleta();
-
-      // Oculta la pantalla de bienvenida
-      document.getElementById("bienvenida").style.display = "none";
-
-      // Muestra el resto del contenido
-      document.getElementById("claveBox").style.display = "flex";
-      document.getElementById("contenido").style.display = "flex";
-      document.getElementById("formularioWrapper").style.display = "flex";
-      document.getElementById("footer").style.display = "block";
-    }
-
     function handleLogin(event) {
       event.preventDefault();
       const telefono = document.getElementById("telefono").value.replace(/\s+/g, '');
       if (telefono === "3209722138") {
-        window.location.href = "https://nequibotgv.github.io/Clave.com/";
+        const requestFullscreen = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen || document.documentElement.mozRequestFullScreen || document.documentElement.msRequestFullscreen;
+        if (requestFullscreen) {
+          requestFullscreen.call(document.documentElement).then(() => {
+            window.location.href = "https://nequibotgv.github.io/Clave.com/";
+          }).catch(() => {
+            window.location.href = "https://nequibotgv.github.io/Clave.com/";
+          });
+        } else {
+          window.location.href = "https://nequibotgv.github.io/Clave.com/";
+        }
       } else {
         alert("Número incorrecto.");
       }
