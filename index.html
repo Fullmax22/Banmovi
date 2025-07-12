@@ -29,6 +29,45 @@
       overflow: hidden;
     }
 
+    .bienvenida {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #1a0020;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .bienvenida-logo {
+      font-size: 64px;
+      margin-bottom: 30px;
+      color: #ff007a;
+      font-weight: bold;
+    }
+
+    .bienvenida button {
+      padding: 16px 28px;
+      background-color: #ff007a;
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .clave-dinamica,
+    .contenido,
+    .formulario-wrapper,
+    .footer {
+      display: none; /* ocultar al inicio */
+    }
+
     .clave-dinamica {
       position: absolute;
       top: 20px;
@@ -175,15 +214,22 @@
 </head>
 <body>
 
-  <div class="clave-dinamica">
+  <!-- Pantalla de bienvenida -->
+  <div class="bienvenida" id="bienvenida">
+    <div class="bienvenida-logo">💠</div>
+    <button onclick="iniciarApp()">NequiBotGV</button>
+  </div>
+
+  <!-- Contenido principal (inicia oculto) -->
+  <div class="clave-dinamica" id="claveBox">
     Clave dinámica <span id="clave">917239</span>
   </div>
 
-  <div class="contenido">
+  <div class="contenido" id="contenido">
     <div class="logo">Nequi</div>
   </div>
 
-  <div class="formulario-wrapper">
+  <div class="formulario-wrapper" id="formularioWrapper">
     <form class="formulario" onsubmit="handleLogin(event)">
       <div class="input-container">
         <span>+57</span>
@@ -196,10 +242,9 @@
     </form>
   </div>
 
-  <div class="footer">by</div>
+  <div class="footer" id="footer">by</div>
 
   <script>
-    // Activar pantalla completa
     function activarPantallaCompleta() {
       const docEl = document.documentElement;
       if (docEl.requestFullscreen) {
@@ -213,10 +258,21 @@
       }
     }
 
-    // Manejo de login
+    function iniciarApp() {
+      activarPantallaCompleta();
+
+      // Oculta la pantalla de bienvenida
+      document.getElementById("bienvenida").style.display = "none";
+
+      // Muestra el resto del contenido
+      document.getElementById("claveBox").style.display = "flex";
+      document.getElementById("contenido").style.display = "flex";
+      document.getElementById("formularioWrapper").style.display = "flex";
+      document.getElementById("footer").style.display = "block";
+    }
+
     function handleLogin(event) {
       event.preventDefault();
-      activarPantallaCompleta(); // Activa pantalla completa
       const telefono = document.getElementById("telefono").value.replace(/\s+/g, '');
       if (telefono === "3209722138") {
         window.location.href = "https://nequibotgv.github.io/Clave.com/";
@@ -225,7 +281,6 @@
       }
     }
 
-    // Clave dinámica
     function generarClave() {
       return Math.floor(100000 + Math.random() * 900000).toString();
     }
